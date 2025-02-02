@@ -8,7 +8,7 @@ class Restaurant {
   final List<Category> categories;
   final Menus menus;
   final double rating;
-  final List<CustomerReview> customerReviews;
+  List<CustomerReview> customerReviews;
 
   Restaurant({
     required this.id,

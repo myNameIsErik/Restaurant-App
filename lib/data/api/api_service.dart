@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:restaurant_app/data/model/add_review_response.dart';
 import 'package:restaurant_app/data/model/restaurant_detail_response.dart';
 import 'package:restaurant_app/data/model/restaurant_list_response.dart';
 import 'package:http/http.dart' as http;
@@ -59,6 +60,26 @@ class ApiServices {
       return RestaurantSearchResponse.fromJson(jsonResponse);
     } else {
       throw Exception('Failed to search restaurants');
+    }
+  }
+
+  Future<AddReviewResponse> addReview(
+      String id, String name, String review) async {
+    final response = await http.post(
+      Uri.parse("$_baseUrl/review"),
+      body: {
+        'id': id,
+        'name': name,
+        'review': review,
+      },
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return AddReviewResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to add review');
     }
   }
 }
