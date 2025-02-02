@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/search/search_provider.dart';
+import 'package:restaurant_app/static/navigation_route.dart';
+import 'package:restaurant_app/static/restaurant_search_result_state.dart';
+import 'package:restaurant_app/widgets/card/restaurant_card.dart';
+
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("CariIn Restaurant",
+            style: Theme.of(context).textTheme.headlineLarge),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+              ),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Cari restoran...',
+                  border: InputBorder.none,
+                  icon: Icon(Icons.search,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
+                onChanged: (query) {
+                  if (query.isNotEmpty) {
+                    context
+                        .read<RestaurantSearchProvider>()
+                        .searchRestaurants(query);
+                  } else {
+                    context
+                        .read<RestaurantSearchProvider>()
+                        .clearSearchResults();
+                  }
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Consumer<RestaurantSearchProvider>(
+              builder: (context, provider, child) {
+                if (provider.resultState is RestaurantSearchLoadingState) {
+                  return Center(
+                    child: Lottie.asset("assets/lottie/loading.json",
+                        width: 200, height: 200, fit: BoxFit.cover),
+                  );
+                }
+                if (provider.resultState is RestaurantSearchErrorState) {
+                  return Center(
+                    child: Text(
+                        (provider.resultState as RestaurantSearchErrorState)
+                            .error),
+                  );
+                }
+                if (provider.resultState is RestaurantSearchLoadedState) {
+                  final restaurants =
+                      (provider.resultState as RestaurantSearchLoadedState)
+                          .data;
+                  return ListView.builder(
+                    itemCount: restaurants.length,
+                    itemBuilder: (context, index) {
+                      final restaurant = restaurants[index];
+                      return RestaurantCard(
+                        restaurant: restaurant,
+                        onTap: () {
+                          // Navigasi ke halaman detail dengan membawa ID restoran
+                          Navigator.pushNamed(
+                            context,
+                            NavigationRoute.detailRoute.name,
+                            arguments: restaurant
+                                .id, // Kirim ID restoran ke DetailScreen
+                          );
+                        },
+                      );
+                    },
+                  );
+                }
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset("assets/lottie/search_2.json",
+                        height: 150, fit: BoxFit.cover),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text('Cari berdasarkan nama dan kategori restoran.'),
+                  ],
+                ));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
