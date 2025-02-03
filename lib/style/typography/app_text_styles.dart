@@ -2,7 +2,10 @@ import 'package:flutter/widgets.dart';
 
 class AppTextStyles {
   static const TextStyle _commonStyle = TextStyle(
-    fontFamily: 'IBMPlexSansCondensed',
+    fontFamily: 'ABeeZee',
+  );
+  static const TextStyle _secondStyle = TextStyle(
+    fontFamily: 'AnekOdia',
   );
 
   /// displayLarge Text Style
@@ -78,28 +81,28 @@ class AppTextStyles {
   );
 
   /// bodyLargeBold Text Style
-  static TextStyle bodyLargeBold = _commonStyle.copyWith(
+  static TextStyle bodyLargeBold = _secondStyle.copyWith(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     height: 1.56,
   );
 
   /// bodyLargeMedium Text Style
-  static TextStyle bodyLargeMedium = _commonStyle.copyWith(
+  static TextStyle bodyLargeMedium = _secondStyle.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.w300,
     height: 1.56,
   );
 
   /// bodyLargeRegular Text Style
-  static TextStyle bodyLargeRegular = _commonStyle.copyWith(
+  static TextStyle bodyLargeRegular = _secondStyle.copyWith(
     fontSize: 12,
     fontWeight: FontWeight.w200,
     height: 1.56,
   );
 
   /// labelLarge Text Style
-  static TextStyle labelLarge = _commonStyle.copyWith(
+  static TextStyle labelLarge = _secondStyle.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.w300,
     height: 1.71,
@@ -107,7 +110,7 @@ class AppTextStyles {
   );
 
   /// labelMedium Text Style
-  static TextStyle labelMedium = _commonStyle.copyWith(
+  static TextStyle labelMedium = _secondStyle.copyWith(
     fontSize: 12,
     fontWeight: FontWeight.w200,
     height: 1.4,
@@ -115,7 +118,7 @@ class AppTextStyles {
   );
 
   /// labelSmall Text Style
-  static TextStyle labelSmall = _commonStyle.copyWith(
+  static TextStyle labelSmall = _secondStyle.copyWith(
     fontSize: 11,
     fontWeight: FontWeight.w100,
     height: 1.2,

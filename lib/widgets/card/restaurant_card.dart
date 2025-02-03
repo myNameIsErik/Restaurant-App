@@ -16,27 +16,30 @@ class RestaurantCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        elevation: 4.0, // Bayangan
+        color: Theme.of(context).colorScheme.surface,
+        elevation: 4.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), // Sudut tumpul pada card
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8.0),
-                  topRight: Radius.circular(8.0),
-                  bottomLeft: Radius.zero,
-                  bottomRight: Radius.zero),
-              child: Image.network(
-                "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
-                width: double.infinity, // Menyesuaikan lebar dengan Card
-                height: 250, // Tetap dengan tinggi tetap
-                fit: BoxFit.cover, // Menjaga proporsi gambar
+            Hero(
+              tag: "image_${restaurant.id}",
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8.0),
+                    topRight: Radius.circular(8.0),
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.zero),
+                child: Image.network(
+                  "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
+                  width: double.infinity,
+                  height: 250,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            // const SizedBox.square(dimension: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
@@ -49,10 +52,13 @@ class RestaurantCard extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                            ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onSurface),
                       ),
                       Spacer(),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(
@@ -63,7 +69,13 @@ class RestaurantCard extends StatelessWidget {
                           const SizedBox.square(dimension: 4),
                           Text(
                             restaurant.rating.toString(),
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
                           ),
                         ],
                       ),
@@ -71,9 +83,11 @@ class RestaurantCard extends StatelessWidget {
                   ),
                   const SizedBox.square(dimension: 6),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.pin_drop,
+                        color: Theme.of(context).colorScheme.onSurface,
                         size: 15,
                       ),
                       const SizedBox.square(dimension: 4),
@@ -82,7 +96,12 @@ class RestaurantCard extends StatelessWidget {
                           restaurant.city,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
                         ),
                       ),
                     ],

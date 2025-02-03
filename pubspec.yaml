@@ -65,12 +65,11 @@ flutter:
   assets:
     - assets/lottie/loading.json
     - assets/lottie/empty.json
-    - assets/lottie/search_2.json
+    - assets/lottie/search.json
+    - assets/lottie/error.json
     - assets/images/food.png
     - assets/images/drink.png
     - assets/images/user.png
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -84,21 +83,25 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: IBMPlexSansCondensed
+    - family: ABeeZee
       fonts:
-        - asset: assets/fonts/IBMPlexSansCondensed-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/IBMPlexSansCondensed-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/IBMPlexSansCondensed-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/IBMPlexSansCondensed-Regular.ttf
+        - asset: assets/fonts/ABeeZee/ABeeZee-Regular.ttf
           weight: 400
-        - asset: assets/fonts/IBMPlexSansCondensed-Light.ttf
+    - family: AnekOdia
+      fonts:
+        - asset: assets/fonts/AnekOdia/AnekOdia-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/AnekOdia/AnekOdia-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/AnekOdia/AnekOdia-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/AnekOdia/AnekOdia-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/AnekOdia/AnekOdia-Light.ttf
           weight: 300
-        - asset: assets/fonts/IBMPlexSansCondensed-ExtraLight.ttf
+        - asset: assets/fonts/AnekOdia/AnekOdia-ExtraLight.ttf
           weight: 200
-        - asset: assets/fonts/IBMPlexSansCondensed-Thin.ttf
+        - asset: assets/fonts/AnekOdia/AnekOdia-Thin.ttf
           weight: 100
   #
   # For details regarding fonts from package dependencies,

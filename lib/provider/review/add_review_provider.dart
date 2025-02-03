@@ -15,13 +15,11 @@ class AddReviewProvider extends ChangeNotifier {
       _resultState = AddReviewLoadingState();
       notifyListeners();
 
-      // Menggunakan API untuk menambahkan review
       final response = await _apiServices.addReview(id, name, review);
 
       if (response.error) {
         _resultState = AddReviewErrorState(response.message);
       } else {
-        // Mengubah state jika review berhasil ditambahkan
         _resultState = AddReviewLoadedState(response.customerReviews);
       }
       notifyListeners();

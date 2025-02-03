@@ -24,7 +24,7 @@ class Restaurant {
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-        id: json["id"] ?? "", // Default "" jika null
+        id: json["id"] ?? "",
         name: json["name"] ?? "Unknown",
         description: json["description"] ?? "No description available",
         city: json["city"] ?? "Unknown",
@@ -37,8 +37,7 @@ class Restaurant {
         menus: json["menus"] != null
             ? Menus.fromJson(json["menus"])
             : Menus(foods: [], drinks: []),
-        rating:
-            (json["rating"] as num?)?.toDouble() ?? 0.0, // Tangani jika null
+        rating: (json["rating"] as num?)?.toDouble() ?? 0.0,
         customerReviews: json["customerReviews"] != null
             ? List<CustomerReview>.from(
                 json["customerReviews"].map((x) => CustomerReview.fromJson(x)))

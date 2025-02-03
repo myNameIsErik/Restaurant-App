@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/provider/review/add_review_provider.dart';
 
 class AddReviewForm extends StatefulWidget {
@@ -23,6 +24,7 @@ class _AddReviewFormState extends State<AddReviewForm> {
 
     if (name.isNotEmpty && review.isNotEmpty) {
       provider.addReview(id, name, review);
+      context.read<RestaurantDetailProvider>().fetchRestaurantDetail(id);
       _nameController.clear();
       _reviewController.clear();
       ScaffoldMessenger.of(context).showSnackBar(

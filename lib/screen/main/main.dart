@@ -11,6 +11,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Consumer<IndexNavProvider>(
         builder: (context, value, child) {
           return switch (value.indexBottomNavBar) {
@@ -20,6 +21,7 @@ class MainScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Theme.of(context).colorScheme.primary,
         currentIndex: context.watch<IndexNavProvider>().indexBottomNavBar,
         onTap: (index) {
           if (index == 2) {
@@ -36,7 +38,6 @@ class MainScreen extends StatelessWidget {
               },
             );
           } else {
-            // navigasi biasa
             context.read<IndexNavProvider>().setIndextBottomNavBar = index;
           }
         },

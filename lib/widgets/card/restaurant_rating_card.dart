@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
+import 'package:restaurant_app/static/navigation_route.dart';
 
 class RestaurantRatingCard extends StatelessWidget {
   final Restaurant restaurantRating;
@@ -16,10 +17,10 @@ class RestaurantRatingCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        // color: Theme.of(context).colorScheme.onPrimary,
-        elevation: 4.0, // Bayangan
+        color: Theme.of(context).colorScheme.surface,
+        elevation: 4.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), // Sudut tumpul pada card
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -52,13 +53,20 @@ class RestaurantRatingCard extends StatelessWidget {
                       children: [
                         Text(
                           restaurantRating.name,
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
                         ),
                         const SizedBox.square(dimension: 6),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.pin_drop,
+                              color: Theme.of(context).colorScheme.onSurface,
                               size: 15,
                             ),
                             const SizedBox.square(dimension: 4),
@@ -67,13 +75,20 @@ class RestaurantRatingCard extends StatelessWidget {
                                 restaurantRating.city,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
-                                style: Theme.of(context).textTheme.bodyMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox.square(dimension: 6),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Icon(
                               Icons.star,
@@ -84,7 +99,13 @@ class RestaurantRatingCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 restaurantRating.rating.toString(),
-                                style: Theme.of(context).textTheme.bodyMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
                               ),
                             ),
                           ],
@@ -94,20 +115,19 @@ class RestaurantRatingCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 9), // Jarak antara Row dan Button
+              const SizedBox(height: 9),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Aksi saat tombol ditekan
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   NavigationRoute.detailRoute.name,
-                    //   arguments: restaurantRating.id,
-                    // );
+                    Navigator.pushNamed(
+                      context,
+                      NavigationRoute.detailRoute.name,
+                      arguments: restaurantRating.id,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    // backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     shape: RoundedRectangleBorder(
@@ -119,14 +139,15 @@ class RestaurantRatingCard extends StatelessWidget {
                     children: [
                       Text(
                         "Lihat Detail",
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary),
                       ),
                       SizedBox(
                         width: 5,
                       ),
                       Icon(
                         Icons.arrow_forward_ios,
-                        // color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         size: 13,
                       )
                     ],

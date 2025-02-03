@@ -25,9 +25,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text("CariIn Restaurant",
-            style: Theme.of(context).textTheme.headlineLarge),
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.primary)),
       ),
       body: Column(
         children: [
@@ -38,17 +42,21 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.outlineVariant),
+                border:
+                    Border.all(color: Theme.of(context).colorScheme.primary),
               ),
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
+                  fillColor: Theme.of(context).colorScheme.primary,
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  focusColor: Theme.of(context).colorScheme.primary,
+                  hoverColor: Theme.of(context).colorScheme.primary,
                   hintText: 'Cari restoran...',
                   border: InputBorder.none,
-                  icon: Icon(Icons.search,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  icon: Icon(Icons.search),
                 ),
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 onChanged: (query) {
                   if (query.isNotEmpty) {
                     context
@@ -79,6 +87,31 @@ class _SearchScreenState extends State<SearchScreen> {
                             .error),
                   );
                 }
+                if (provider.resultState is RestaurantSearchEmptyState) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset(
+                          "assets/lottie/empty.json",
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Oops! Restoran tidak ditemukan.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                        ),
+                      ],
+                    ),
+                  );
+                }
                 if (provider.resultState is RestaurantSearchLoadedState) {
                   final restaurants =
                       (provider.resultState as RestaurantSearchLoadedState)
@@ -90,12 +123,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       return RestaurantCard(
                         restaurant: restaurant,
                         onTap: () {
-                          // Navigasi ke halaman detail dengan membawa ID restoran
                           Navigator.pushNamed(
                             context,
                             NavigationRoute.detailRoute.name,
-                            arguments: restaurant
-                                .id, // Kirim ID restoran ke DetailScreen
+                            arguments: restaurant.id,
                           );
                         },
                       );
@@ -106,12 +137,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset("assets/lottie/search_2.json",
+                    Lottie.asset("assets/lottie/search.json",
                         height: 150, fit: BoxFit.cover),
                     SizedBox(
                       height: 10,
                     ),
-                    Text('Cari berdasarkan nama dan kategori restoran.'),
+                    Text('Cari berdasarkan nama dan kategori restoran.',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface)),
                   ],
                 ));
               },

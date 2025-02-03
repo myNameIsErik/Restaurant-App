@@ -13,11 +13,9 @@ class ReviewListCard extends StatelessWidget {
         itemBuilder: (context, index) {
           final review = reviews[index];
           return Card(
-            // color: Theme.of(context).colorScheme.onPrimary,
-            elevation: 4.0, // Bayangan
+            elevation: 4.0,
             shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(8.0), // Sudut tumpul pada card
+              borderRadius: BorderRadius.circular(8.0),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),

@@ -31,24 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("CariIn Restaurant",
-            style: Theme.of(context).textTheme.headlineLarge),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.search),
-        //     onPressed: () {
-        //       Navigator.pushNamed(
-        //         context,
-        //         NavigationRoute.searchRoute.name,
-        //         arguments: 'cari restoran',
-        //       );
-        //     },
-        //   ),
-        // ],
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge
+                ?.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        toolbarHeight: MediaQuery.of(context).size.height * 0.1,
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, NavigationRoute.searchRoute.name);
@@ -57,16 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border:
+                      Border.all(color: Theme.of(context).colorScheme.primary),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.search),
-                    SizedBox(width: 10),
+                    Icon(
+                      Icons.search,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    SizedBox(width: 8),
                     Text(
                       "Cari restoran...",
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   ],
                 ),
@@ -78,33 +77,45 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, ratingProvider, listProvider, child) {
                 if (ratingProvider.resultState is RestaurantListLoadingState ||
                     listProvider.resultState is RestaurantListLoadingState) {
-                  // Tampilkan hanya satu loading indikator
                   return Center(
                     child: Lottie.asset("assets/lottie/loading.json",
                         width: 200, height: 200, fit: BoxFit.cover),
                   );
                 }
 
-                if (ratingProvider.resultState is RestaurantListErrorState) {
-                  // Tampilkan pesan error jika ada
-                  final errorMessage =
-                      (ratingProvider.resultState as RestaurantListErrorState)
-                          .error;
+                if (ratingProvider.resultState is RestaurantListErrorState ||
+                    listProvider.resultState is RestaurantListErrorState) {
                   return Center(
-                    child: Text(errorMessage),
-                  );
-                }
-                if (listProvider.resultState is RestaurantListErrorState) {
-                  // Tampilkan pesan error jika ada
-                  final errorMessage =
-                      (listProvider.resultState as RestaurantListErrorState)
-                          .error;
-                  return Center(
-                    child: Text(errorMessage),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset("assets/lottie/error.json", height: 200),
+                        const SizedBox(height: 10),
+                        Text(
+                          "Oops! Terjadi kesalahan.",
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Periksa Koneksi Internet Anda.",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                        ),
+                      ],
+                    ),
                   );
                 }
 
-                // Data berhasil dimuat
                 if (ratingProvider.resultState is RestaurantListLoadedState ||
                     listProvider.resultState is RestaurantListLoadedState) {
                   final restaurantRating =
@@ -121,7 +132,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 8),
                           child: Text("Top Rating",
-                              style: Theme.of(context).textTheme.titleLarge),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.26,
@@ -153,7 +170,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 8),
                           child: Text("Recommended For You",
-                              style: Theme.of(context).textTheme.titleLarge),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
                         ),
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
@@ -185,7 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
-                // Default fallback jika kondisi tidak dikenali
                 return const SizedBox();
               },
             ),
