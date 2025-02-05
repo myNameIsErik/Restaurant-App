@@ -47,7 +47,28 @@ class _DetailScreenState extends State<DetailScreen> {
             RestaurantDetailLoadedState(data: var restaurant) =>
               BodyOfDetailScreenWidget(restaurant: restaurant),
             RestaurantDetailErrorState(error: var message) => Center(
-                child: Text(message),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset("assets/lottie/error.json", height: 200),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Oops! Terjadi kesalahan.",
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Periksa Koneksi Internet Anda.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface),
+                    ),
+                  ],
+                ),
               ),
             _ => const SizedBox(),
           };

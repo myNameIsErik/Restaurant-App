@@ -19,26 +19,31 @@ class FoodCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxHeight: 100,
-                minHeight: 100,
-                maxWidth: 100,
-                minWidth: 100,
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4.0),
-                child: Image.asset(
-                  "assets/images/food.png",
-                  fit: BoxFit.cover,
+            Expanded(
+              flex: 3,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 100,
+                  minHeight: 100,
+                  maxWidth: 100,
+                  minWidth: 100,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4.0),
+                  child: Image.asset(
+                    "assets/images/food.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
             const SizedBox.square(dimension: 8),
-            Text(
-              name,
-              style: Theme.of(context).textTheme.titleMedium,
-              maxLines: 2,
+            Expanded(
+              child: Text(
+                name,
+                style: Theme.of(context).textTheme.titleMedium,
+                maxLines: 2,
+              ),
             ),
           ],
         ),

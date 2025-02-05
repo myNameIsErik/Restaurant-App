@@ -26,98 +26,102 @@ class RestaurantRatingCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxHeight: 100,
-                      minHeight: 100,
-                      maxWidth: 100,
-                      minWidth: 100,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4.0),
-                      child: Image.network(
-                        "https://restaurant-api.dicoding.dev/images/small/${restaurantRating.pictureId}",
-                        fit: BoxFit.cover,
+              Expanded(
+                flex: 3,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxHeight: 100,
+                        minHeight: 100,
+                        maxWidth: 100,
+                        minWidth: 100,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4.0),
+                        child: Image.network(
+                          "https://restaurant-api.dicoding.dev/images/small/${restaurantRating.pictureId}",
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox.square(dimension: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          restaurantRating.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
-                        ),
-                        const SizedBox.square(dimension: 6),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.pin_drop,
-                              color: Theme.of(context).colorScheme.onSurface,
-                              size: 15,
-                            ),
-                            const SizedBox.square(dimension: 4),
-                            Expanded(
-                              child: Text(
-                                restaurantRating.city,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface),
+                    const SizedBox.square(dimension: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            restaurantRating.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
+                          ),
+                          const SizedBox.square(dimension: 6),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.pin_drop,
+                                color: Theme.of(context).colorScheme.onSurface,
+                                size: 15,
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox.square(dimension: 6),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              size: 15,
-                              color: Colors.orange,
-                            ),
-                            const SizedBox.square(dimension: 4),
-                            Expanded(
-                              child: Text(
-                                restaurantRating.rating.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface),
+                              const SizedBox.square(dimension: 4),
+                              Expanded(
+                                child: Text(
+                                  restaurantRating.city,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          const SizedBox.square(dimension: 6),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                size: 15,
+                                color: Colors.orange,
+                              ),
+                              const SizedBox.square(dimension: 4),
+                              Expanded(
+                                child: Text(
+                                  restaurantRating.rating.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 9),
-              SizedBox(
-                width: double.infinity,
+              Expanded(
+                flex: 1,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(
