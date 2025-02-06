@@ -82,9 +82,33 @@ class _SearchScreenState extends State<SearchScreen> {
                 }
                 if (provider.resultState is RestaurantSearchErrorState) {
                   return Center(
-                    child: Text(
-                        (provider.resultState as RestaurantSearchErrorState)
-                            .error),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset("assets/lottie/error.json", height: 200),
+                        const SizedBox(height: 10),
+                        Text(
+                          "Oops! Terjadi kesalahan.",
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Periksa Koneksi Internet Anda.",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                        ),
+                      ],
+                    ),
                   );
                 }
                 if (provider.resultState is RestaurantSearchEmptyState) {
