@@ -28,7 +28,16 @@ class _AddReviewFormState extends State<AddReviewForm> {
       _nameController.clear();
       _reviewController.clear();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Review added successfully!")),
+        SnackBar(
+          content: Text(
+            "Review added successfully!",
+            style: Theme.of(context)
+                .textTheme
+                .labelLarge
+                ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
       );
     }
   }
@@ -96,10 +105,19 @@ class _AddReviewFormState extends State<AddReviewForm> {
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
                 onPressed: _submitReview,
                 child: Text(
                   "Kirim",
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary),
                 ),
               ),
             ),

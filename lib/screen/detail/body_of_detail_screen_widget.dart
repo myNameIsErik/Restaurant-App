@@ -8,6 +8,7 @@ import 'package:restaurant_app/screen/detail/menu_list.dart';
 import 'package:restaurant_app/screen/review/add_review_form.dart';
 import 'package:restaurant_app/screen/review/review_list.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
+import 'package:restaurant_app/widgets/detail/view_more_detail.dart';
 
 class BodyOfDetailScreenWidget extends StatelessWidget {
   const BodyOfDetailScreenWidget({
@@ -124,10 +125,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox.square(dimension: 8),
-                Text(
-                  restaurant.description,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
+                ExpandableDescription(description: restaurant.description),
                 const SizedBox.square(dimension: 16),
                 Divider(
                   thickness: 1,

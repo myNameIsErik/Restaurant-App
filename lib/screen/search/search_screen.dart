@@ -144,15 +144,22 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: restaurants.length,
                     itemBuilder: (context, index) {
                       final restaurant = restaurants[index];
-                      return RestaurantCard(
-                        restaurant: restaurant,
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            NavigationRoute.detailRoute.name,
-                            arguments: restaurant.id,
-                          );
-                        },
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.41,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 4),
+                          child: RestaurantCard(
+                            restaurant: restaurant,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                NavigationRoute.detailRoute.name,
+                                arguments: restaurant.id,
+                              );
+                            },
+                          ),
+                        ),
                       );
                     },
                   );
