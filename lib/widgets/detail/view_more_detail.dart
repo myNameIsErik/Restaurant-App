@@ -21,7 +21,7 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
           widget.description,
           maxLines: _isExpanded ? null : 3,
           overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 4),
         GestureDetector(
@@ -35,10 +35,9 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
             children: [
               Text(
                 _isExpanded ? "Lihat lebih sedikit" : "Lihat selengkapnya",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: Theme.of(context).colorScheme.primary),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 4),
               Icon(

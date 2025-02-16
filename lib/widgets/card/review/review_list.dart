@@ -19,7 +19,8 @@ class ReviewList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final review = customerReviews[index];
                   return Card(
-                    elevation: 3,
+                    elevation: 1.0,
+                    shadowColor: Theme.of(context).colorScheme.onSurface,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

@@ -45,7 +45,8 @@ class _AddReviewFormState extends State<AddReviewForm> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 3,
+      elevation: 1.0,
+      shadowColor: Theme.of(context).colorScheme.onSurface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -116,7 +117,7 @@ class _AddReviewFormState extends State<AddReviewForm> {
                 onPressed: _submitReview,
                 child: Text(
                   "Kirim",
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary),
                 ),
               ),

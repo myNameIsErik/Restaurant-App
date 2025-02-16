@@ -31,10 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("CariIn Restaurant",
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.bold)),
         backgroundColor: Theme.of(context).colorScheme.primary,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
       ),
@@ -52,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   border:
                       Border.all(color: Theme.of(context).colorScheme.primary),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,11 +133,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text("Top Rating",
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleLarge
+                                  .titleMedium
                                   ?.copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onSurface)),
+                                          .onSurface,
+                                      fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.26,
@@ -172,11 +172,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text("Recommended For You",
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleLarge
+                                  .titleMedium
                                   ?.copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onSurface)),
+                                          .onSurface,
+                                      fontWeight: FontWeight.bold)),
                         ),
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),

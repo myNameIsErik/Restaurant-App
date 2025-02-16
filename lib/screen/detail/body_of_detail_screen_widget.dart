@@ -5,8 +5,8 @@ import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/screen/detail/favorite_icon_widget.dart';
 import 'package:restaurant_app/screen/detail/menu_list.dart';
-import 'package:restaurant_app/screen/review/add_review_form.dart';
-import 'package:restaurant_app/screen/review/review_list.dart';
+import 'package:restaurant_app/widgets/card/review/add_review_form.dart';
+import 'package:restaurant_app/widgets/card/review/review_list.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 import 'package:restaurant_app/widgets/detail/view_more_detail.dart';
 
@@ -53,8 +53,10 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                             children: [
                               Text(
                                 restaurant.name,
-                                style:
-                                    Theme.of(context).textTheme.headlineLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium
+                                    ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                               Spacer(),
                               ChangeNotifierProvider(
@@ -131,6 +133,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                   thickness: 1,
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
+                const SizedBox.square(dimension: 16),
                 MenuList(restaurant: restaurant),
                 SizedBox(
                   height: 16,
@@ -142,10 +145,13 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                         ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 ReviewList(customerReviews: restaurant.customerReviews),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Text(
                   "Tambahkan review anda",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 8,

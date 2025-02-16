@@ -44,7 +44,7 @@ class MenuList extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox.square(dimension: 8),
+        const SizedBox.square(dimension: 16),
         Text(
           "Minuman",
           style: Theme.of(context).textTheme.bodyLarge,
