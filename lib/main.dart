@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/provider/detail/favorite_list_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
+import 'package:restaurant_app/provider/favorite/favorite_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_rating_provider.dart';
 import 'package:restaurant_app/provider/main/index_nav_provider.dart';
@@ -12,6 +13,7 @@ import 'package:restaurant_app/provider/style/theme/theme_provider.dart';
 import 'package:restaurant_app/screen/detail/detail_screen.dart';
 import 'package:restaurant_app/screen/main/main.dart';
 import 'package:restaurant_app/screen/search/search_screen.dart';
+import 'package:restaurant_app/services/favorite_service.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/style/theme/app_theme.dart';
 
@@ -19,6 +21,12 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        Provider(
+          create: (context) => FavoriteService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(),
+        ),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),

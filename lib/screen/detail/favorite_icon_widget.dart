@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/data/model/favorite_restaurant.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
-import 'package:restaurant_app/provider/detail/favorite_list_provider.dart';
+import 'package:restaurant_app/provider/favorite/favorite_provider.dart';
+import 'package:restaurant_app/services/favorite_service.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
-  final Restaurant restaurant;
+  final Restaurant favRestaurant;
   const FavoriteIconWidget({
     super.key,
-    required this.restaurant,
+    required this.favRestaurant,
   });
 
   @override
@@ -18,30 +20,45 @@ class FavoriteIconWidget extends StatefulWidget {
 class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
   @override
   void initState() {
-    final favoriteListProvider = context.read<FavoriteListProvider>();
-    final favoriteIconProvider = context.read<FavoriteIconProvider>();
-
-    Future.microtask(() {
-      final restaurantInList =
-          favoriteListProvider.checkItemFavorite(widget.restaurant);
-      favoriteIconProvider.isFavorited = restaurantInList;
-    });
-
     super.initState();
+
+    Future.microtask(() async {
+      final favoriteListProvider = context.read<FavoriteProvider>();
+      final favoriteIconProvider = context.read<FavoriteIconProvider>();
+
+      // Cek apakah restoran ini ada di daftar favorit
+      final isFavorited =
+          await favoriteListProvider.isFavorite(widget.favRestaurant.id);
+      favoriteIconProvider.isFavorited = isFavorited;
+      context.read<FavoriteProvider>().loadFavorites();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        final favoriteListProvider = context.read<FavoriteListProvider>();
-        final favoriteIconProvider = context.read<FavoriteIconProvider>();
-        final isFavorited = favoriteIconProvider.isFavorited;
+    final favService = FavoriteService();
+    final favoriteIconProvider = context.watch<FavoriteIconProvider>();
 
-        if (!isFavorited) {
-          favoriteListProvider.addFavorite(widget.restaurant);
+    return IconButton(
+      onPressed: () async {
+        final isFavorited = favoriteIconProvider.isFavorited;
+        final favoriteProvider = context.read<FavoriteProvider>();
+
+        final favoriteRestaurant = FavoriteRestaurant(
+          id: widget.favRestaurant.id,
+          name: widget.favRestaurant.name,
+          city: widget.favRestaurant.city,
+          address: widget.favRestaurant.address,
+          pictureId: widget.favRestaurant.pictureId,
+          rating: widget.favRestaurant.rating,
+        );
+
+        if (isFavorited) {
+          context
+              .read<FavoriteProvider>()
+              .removeFavorite(widget.favRestaurant.id);
         } else {
-          favoriteListProvider.removeFavorite(widget.restaurant);
+          context.read<FavoriteProvider>().addFavorite(favoriteRestaurant);
         }
         favoriteIconProvider.isFavorited = !isFavorited;
       },

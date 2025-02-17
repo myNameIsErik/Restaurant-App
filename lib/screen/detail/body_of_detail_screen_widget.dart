@@ -68,7 +68,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                                       data: var restaurant
                                     ) =>
                                       FavoriteIconWidget(
-                                          restaurant: restaurant),
+                                          favRestaurant: restaurant),
                                     _ => const SizedBox(),
                                   };
                                 }),

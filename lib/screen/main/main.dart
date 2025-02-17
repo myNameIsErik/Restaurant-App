@@ -49,8 +49,8 @@ class MainScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            label: "Liked",
-            tooltip: "Liked",
+            label: "Favorite",
+            tooltip: "Favorite",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
