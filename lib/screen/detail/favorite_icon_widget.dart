@@ -4,7 +4,6 @@ import 'package:restaurant_app/data/model/favorite_restaurant.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/favorite/favorite_provider.dart';
-import 'package:restaurant_app/services/favorite_service.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
   final Restaurant favRestaurant;
@@ -36,13 +35,11 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final favService = FavoriteService();
     final favoriteIconProvider = context.watch<FavoriteIconProvider>();
 
     return IconButton(
       onPressed: () async {
         final isFavorited = favoriteIconProvider.isFavorited;
-        final favoriteProvider = context.read<FavoriteProvider>();
 
         final favoriteRestaurant = FavoriteRestaurant(
           id: widget.favRestaurant.id,
