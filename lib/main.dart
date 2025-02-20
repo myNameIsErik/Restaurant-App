@@ -65,13 +65,13 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         Provider(
           create: (context) => FavoriteService(),
         ),
         ChangeNotifierProvider(
           create: (context) => FavoriteProvider(),
         ),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
         ),
@@ -125,19 +125,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     AppThemes theme = AppThemes();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme.light(),
-      darkTheme: theme.dark(),
-      themeMode: Provider.of<ThemeProvider>(context).themeMode,
-      initialRoute: NavigationRoute.mainRoute.name,
-      routes: {
-        NavigationRoute.mainRoute.name: (context) => const MainScreen(),
-        NavigationRoute.searchRoute.name: (context) => SearchScreen(),
-        NavigationRoute.detailRoute.name: (context) => DetailScreen(
-              restaurantId:
-                  ModalRoute.of(context)?.settings.arguments as String,
-            ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: theme.light(),
+          darkTheme: theme.dark(),
+          themeMode: themeProvider
+              .themeMode, // 🔥 Tidak error lagi karena provider sudah tersedia
+          initialRoute: NavigationRoute.mainRoute.name,
+          routes: {
+            NavigationRoute.mainRoute.name: (context) => const MainScreen(),
+            NavigationRoute.searchRoute.name: (context) => SearchScreen(),
+            NavigationRoute.detailRoute.name: (context) => DetailScreen(
+                  restaurantId:
+                      ModalRoute.of(context)?.settings.arguments as String,
+                ),
+          },
+        );
       },
     );
   }

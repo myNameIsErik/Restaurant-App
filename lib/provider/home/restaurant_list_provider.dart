@@ -28,4 +28,9 @@ class RestaurantListProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void setTestState(RestaurantListResultState state) {
+    _resultState = state;
+    notifyListeners();
+  }
 }

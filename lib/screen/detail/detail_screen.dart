@@ -34,6 +34,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('detail_screen'),
       appBar: AppBar(
         title: const Text("Restaurant Detail"),
       ),

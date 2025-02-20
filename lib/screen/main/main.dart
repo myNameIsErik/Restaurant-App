@@ -11,6 +11,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('main_screen'),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Consumer<IndexNavProvider>(
         builder: (context, value, child) {
@@ -49,13 +50,13 @@ class MainScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            label: "Favorite",
-            tooltip: "Favorite",
+            label: "Favorit",
+            tooltip: "Favorit",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
-            label: "Settings",
-            tooltip: "Seetings",
+            label: "Pengaturan",
+            tooltip: "Pengaturan",
           ),
         ],
       ),

@@ -27,17 +27,17 @@ class _SettingDrawerState extends State<SettingDrawer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Settings",
+            "Pengaturan",
             style: theme.textTheme.titleLarge,
           ),
           const Divider(),
           ListTile(
             title: Text(
-              "Restaurant Notification",
+              "Notifikasi",
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             subtitle: Text(
-              "Enable Notification",
+              "Izinkan Notifikasi",
               style: Theme.of(context).textTheme.labelLarge,
             ),
             trailing: Switch(
@@ -50,11 +50,11 @@ class _SettingDrawerState extends State<SettingDrawer> {
           ),
           ListTile(
             title: Text(
-              "Theme Mode",
+              "Tema",
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             subtitle: Text(
-              "Choose App Theme",
+              "Pilih Tema Aplikasi",
               style: Theme.of(context).textTheme.labelLarge,
             ),
             trailing: DropdownButton<ThemeMode>(
@@ -67,19 +67,19 @@ class _SettingDrawerState extends State<SettingDrawer> {
                 DropdownMenuItem(
                     value: ThemeMode.light,
                     child: Text(
-                      "Light",
+                      "Terang",
                       style: Theme.of(context).textTheme.bodyLarge,
                     )),
                 DropdownMenuItem(
                     value: ThemeMode.dark,
                     child: Text(
-                      "Dark",
+                      "Gelap",
                       style: Theme.of(context).textTheme.bodyLarge,
                     )),
                 DropdownMenuItem(
                     value: ThemeMode.system,
                     child: Text(
-                      "System",
+                      "Sistem",
                       style: Theme.of(context).textTheme.bodyLarge,
                     )),
               ],

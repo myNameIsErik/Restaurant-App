@@ -14,12 +14,12 @@ class RestaurantRatingProvider extends ChangeNotifier {
   List<Restaurant> _restaurants = [];
   List<Restaurant> get restaurants => _restaurants;
 
-  Future<void> fetchRestaurantList() async {
+  Future<void> fetchRestaurantRating() async {
     try {
       _resultState = RestaurantListLoadingState();
       notifyListeners();
 
-      final result = await _apiServices.getRestaurantRating();
+      final result = await _apiServices.getRestaurantList();
 
       if (result.error) {
         _resultState = RestaurantListErrorState(result.message);
@@ -36,5 +36,10 @@ class RestaurantRatingProvider extends ChangeNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  void setTestState(RestaurantListResultState state) {
+    _resultState = state;
+    notifyListeners();
   }
 }

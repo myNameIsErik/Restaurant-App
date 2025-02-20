@@ -21,6 +21,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      key: const Key('body_detail'),
       child: Column(
         children: [
           Hero(

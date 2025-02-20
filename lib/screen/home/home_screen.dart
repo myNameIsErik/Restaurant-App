@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     Future.microtask(() {
       context.read<RestaurantListProvider>().fetchRestaurantList();
-      context.read<RestaurantRatingProvider>().fetchRestaurantList();
+      context.read<RestaurantRatingProvider>().fetchRestaurantRating();
     });
   }
 
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 8),
-                          child: Text("Top Rating",
+                          child: Text("Rating Teratas",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -153,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 16, top: 8, bottom: 16),
                                   child: RestaurantRatingCard(
+                                    key: Key('restaurant_$index'),
                                     restaurantRating: restaurant,
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -169,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 8),
-                          child: Text("Recommended For You",
+                          child: Text("Rekomendasi Untuk Kamu",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium

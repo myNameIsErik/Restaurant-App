@@ -39,6 +39,25 @@ class FavoriteRestaurantCard extends StatelessWidget {
                     width: double.infinity,
                     height: 250,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: double.infinity,
+                        height: 250,
+                        color: Colors.grey[300],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.broken_image,
+                                size: 50, color: Colors.grey[600]),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Gagal Memuat Gambar",
+                              style: TextStyle(color: Colors.grey[700]),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

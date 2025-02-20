@@ -28,23 +28,6 @@ class ApiServices {
     }
   }
 
-  Future<RestaurantListResponse> getRestaurantRating() async {
-    final response = await http.get(Uri.parse("$_baseUrl/list"));
-
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      final restaurantResponse = RestaurantListResponse.fromJson(jsonResponse);
-
-      // Sorting berdasarkan rating dari terbesar ke terkecil
-      restaurantResponse.restaurants
-          .sort((a, b) => b.rating.compareTo(a.rating));
-
-      return restaurantResponse;
-    } else {
-      throw Exception('Failed to load tourism list');
-    }
-  }
-
   Future<RestaurantSearchResponse> searchRestaurant(String query) async {
     final response = await http.get(Uri.parse("$_baseUrl/search?q=$query"));
 
