@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+
 import 'package:restaurant_app/data/model/restaurant_list_response.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
@@ -39,7 +40,10 @@ void main() {
         customerReviews: [
           // Tambahkan customerReviews
           CustomerReview(
-              name: "John Doe", review: "Makanannya enak!", date: "2024-02-19"),
+            name: "John Doe",
+            review: "Makanannya enak!",
+            date: "2024-02-19",
+          ),
         ],
       ),
     ],
@@ -51,29 +55,34 @@ void main() {
     });
 
     test(
-        "Harus mengembalikan daftar restoran ketika pengambilan data API berhasil",
-        () async {
-      when(mockApiService.getRestaurantList())
-          .thenAnswer((_) async => fakeResponse);
+      "Harus mengembalikan daftar restoran ketika pengambilan data API berhasil",
+      () async {
+        when(
+          mockApiService.getRestaurantList(),
+        ).thenAnswer((_) async => fakeResponse);
 
-      await provider.fetchRestaurantList();
+        await provider.fetchRestaurantList();
 
-      expect(provider.resultState, isA<RestaurantListLoadedState>());
-      final state = provider.resultState as RestaurantListLoadedState;
-      expect(state.data, isNotEmpty);
-      expect(state.data.first.name, "Melting Pot");
-    });
+        expect(provider.resultState, isA<RestaurantListLoadedState>());
+        final state = provider.resultState as RestaurantListLoadedState;
+        expect(state.data, isNotEmpty);
+        expect(state.data.first.name, "Melting Pot");
+      },
+    );
 
-    test("Harus mengembalikan error ketika pengambilan data API gagal",
-        () async {
-      when(mockApiService.getRestaurantList())
-          .thenThrow(Exception("Network Error"));
+    test(
+      "Harus mengembalikan error ketika pengambilan data API gagal",
+      () async {
+        when(
+          mockApiService.getRestaurantList(),
+        ).thenThrow(Exception("Network Error"));
 
-      await provider.fetchRestaurantList();
+        await provider.fetchRestaurantList();
 
-      expect(provider.resultState, isA<RestaurantListErrorState>());
-      final state = provider.resultState as RestaurantListErrorState;
-      expect(state.error, "Exception: Network Error");
-    });
+        expect(provider.resultState, isA<RestaurantListErrorState>());
+        final state = provider.resultState as RestaurantListErrorState;
+        expect(state.error, "Exception: Network Error");
+      },
+    );
   });
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 
 class RestaurantDetailProvider extends ChangeNotifier {
   final ApiServices _apiServices;
 
-  RestaurantDetailProvider(
-    this._apiServices,
-  );
+  RestaurantDetailProvider(this._apiServices);
 
   RestaurantDetailResultState _resultState = RestaurantDetailNoneState();
 
@@ -31,5 +30,10 @@ class RestaurantDetailProvider extends ChangeNotifier {
       _resultState = RestaurantDetailErrorState(e.toString());
       notifyListeners();
     }
+  }
+
+  void setErrorState(String message) {
+    _resultState = RestaurantDetailErrorState(message);
+    notifyListeners();
   }
 }

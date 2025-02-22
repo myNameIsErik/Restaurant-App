@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
@@ -11,10 +12,8 @@ import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 import 'package:restaurant_app/widgets/detail/view_more_detail.dart';
 
 class BodyOfDetailScreenWidget extends StatelessWidget {
-  const BodyOfDetailScreenWidget({
-    super.key,
-    required this.restaurant,
-  });
+  const BodyOfDetailScreenWidget({super.key, required this.restaurant});
+  static const String _baseUrl = "https://restaurant-api.dicoding.dev";
 
   final Restaurant restaurant;
 
@@ -32,7 +31,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                 bottomRight: Radius.circular(24.0),
               ),
               child: Image.network(
-                "https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}",
+                "$_baseUrl/images/large/${restaurant.pictureId}",
                 fit: BoxFit.cover,
               ),
             ),
@@ -63,36 +62,56 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                               ChangeNotifierProvider(
                                 create: (context) => FavoriteIconProvider(),
                                 child: Consumer<RestaurantDetailProvider>(
-                                    builder: (context, value, child) {
-                                  return switch (value.resultState) {
-                                    RestaurantDetailLoadedState(
-                                      data: var restaurant
-                                    ) =>
-                                      FavoriteIconWidget(
-                                          favRestaurant: restaurant),
-                                    _ => const SizedBox(),
-                                  };
-                                }),
+                                  builder: (context, value, child) {
+                                    return switch (value.resultState) {
+                                      RestaurantDetailLoadedState(
+                                        data: var restaurant,
+                                      ) =>
+                                        FavoriteIconWidget(
+                                          favRestaurant: restaurant,
+                                        ),
+                                      _ => const SizedBox(),
+                                    };
+                                  },
+                                ),
                               ),
                             ],
                           ),
                           const SizedBox.square(dimension: 8),
                           Row(
                             children: [
-                              const Icon(
-                                Icons.pin_drop,
-                                size: 15,
-                              ),
-                              const SizedBox.square(dimension: 4),
-                              Text(
-                                "${restaurant.address}, ${restaurant.city}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(fontWeight: FontWeight.w400),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.pin_drop, size: 16),
+                                  const SizedBox.square(dimension: 4),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${restaurant.address},",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.labelLarge?.copyWith(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${restaurant.city}",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.labelLarge?.copyWith(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                               Spacer(),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Icon(
                                     Icons.star,
@@ -104,7 +123,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                                     restaurant.rating.toString(),
                                     style:
                                         Theme.of(context).textTheme.bodyLarge,
-                                  )
+                                  ),
                                 ],
                               ),
                             ],
@@ -122,10 +141,9 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                 const SizedBox.square(dimension: 16),
                 Text(
                   "Deskripsi",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox.square(dimension: 8),
                 ExpandableDescription(description: restaurant.description),
@@ -136,28 +154,24 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                 ),
                 const SizedBox.square(dimension: 16),
                 MenuList(restaurant: restaurant),
-                SizedBox(
-                  height: 16,
+                SizedBox(height: 16),
+                Text(
+                  "Review",
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text("Review",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 ReviewList(customerReviews: restaurant.customerReviews),
                 const SizedBox(height: 16),
                 Text(
                   "Tambahkan review anda",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  height: 8,
-                ),
-                AddReviewForm(restaurantId: restaurant.id)
+                SizedBox(height: 8),
+                AddReviewForm(restaurantId: restaurant.id),
               ],
             ),
           ),

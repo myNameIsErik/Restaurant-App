@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/widgets/card/menu/drink_card.dart';
 import 'package:restaurant_app/widgets/card/menu/food_card.dart';
@@ -15,16 +16,12 @@ class MenuList extends StatelessWidget {
       children: [
         Text(
           "Menu",
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox.square(dimension: 8),
-        Text(
-          "Makanan",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        Text("Makanan", style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox.square(dimension: 8),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.22,
@@ -36,19 +33,14 @@ class MenuList extends StatelessWidget {
                 width: MediaQuery.of(context).size.height * 0.2,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: FoodCard(
-                    name: restaurant.menus.foods[index].name,
-                  ),
+                  child: FoodCard(name: restaurant.menus.foods[index].name),
                 ),
               );
             },
           ),
         ),
         const SizedBox.square(dimension: 16),
-        Text(
-          "Minuman",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        Text("Minuman", style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox.square(dimension: 8),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.22,
@@ -60,9 +52,7 @@ class MenuList extends StatelessWidget {
                 width: MediaQuery.of(context).size.height * 0.2,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: DrinkCard(
-                    name: restaurant.menus.drinks[index].name,
-                  ),
+                  child: DrinkCard(name: restaurant.menus.drinks[index].name),
                 ),
               );
             },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_rating_provider.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
@@ -30,10 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CariIn Restaurant",
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontWeight: FontWeight.bold)),
+        title: Text(
+          "CariIn Restaurant",
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
       ),
@@ -46,11 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushNamed(context, NavigationRoute.searchRoute.name);
               },
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
-                  border:
-                      Border.all(color: Theme.of(context).colorScheme.primary),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Row(
@@ -64,7 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "Cari restoran...",
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.primary),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ],
                 ),
@@ -77,8 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (ratingProvider.resultState is RestaurantListLoadingState ||
                     listProvider.resultState is RestaurantListLoadingState) {
                   return Center(
-                    child: Lottie.asset("assets/lottie/loading.json",
-                        width: 200, height: 200, fit: BoxFit.cover),
+                    child: Lottie.asset(
+                      "assets/lottie/loading.json",
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
                   );
                 }
 
@@ -92,23 +104,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 10),
                         Text(
                           "Oops! Terjadi kesalahan.",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Text(
                           "Periksa Koneksi Internet Anda.",
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                       ],
                     ),
@@ -130,15 +140,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 8),
-                          child: Text("Rating Teratas",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontWeight: FontWeight.bold)),
+                          child: Text(
+                            "Rating Teratas",
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.26,
@@ -151,7 +161,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 16, top: 8, bottom: 16),
+                                    left: 16,
+                                    top: 8,
+                                    bottom: 16,
+                                  ),
                                   child: RestaurantRatingCard(
                                     key: Key('restaurant_$index'),
                                     restaurantRating: restaurant,
@@ -170,15 +183,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 8),
-                          child: Text("Rekomendasi Untuk Kamu",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontWeight: FontWeight.bold)),
+                          child: Text(
+                            "Rekomendasi Untuk Kamu",
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
@@ -190,7 +203,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: MediaQuery.of(context).size.height * 0.41,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
                                 child: RestaurantCard(
                                   restaurant: restaurant,
                                   onTap: () {

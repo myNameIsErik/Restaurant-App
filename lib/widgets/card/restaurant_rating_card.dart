@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 
 class RestaurantRatingCard extends StatelessWidget {
   final Restaurant restaurantRating;
   final Function() onTap;
+  static const String _baseUrl = "https://restaurant-api.dicoding.dev";
 
   const RestaurantRatingCard({
     super.key,
@@ -19,9 +21,7 @@ class RestaurantRatingCard extends StatelessWidget {
       child: Card(
         elevation: 1.0,
         shadowColor: Theme.of(context).colorScheme.onSurface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -41,7 +41,7 @@ class RestaurantRatingCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4.0),
                         child: Image.network(
-                          "https://restaurant-api.dicoding.dev/images/small/${restaurantRating.pictureId}",
+                          "$_baseUrl/images/small/${restaurantRating.pictureId}",
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -55,13 +55,11 @@ class RestaurantRatingCard extends StatelessWidget {
                         children: [
                           Text(
                             restaurantRating.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
                           const SizedBox.square(dimension: 6),
                           Row(
@@ -78,13 +76,12 @@ class RestaurantRatingCard extends StatelessWidget {
                                   restaurantRating.city,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface),
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
                                 ),
                               ),
                             ],
@@ -102,13 +99,12 @@ class RestaurantRatingCard extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   restaurantRating.rating.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface),
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
                                 ),
                               ),
                             ],
@@ -132,8 +128,10 @@ class RestaurantRatingCard extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -144,16 +142,15 @@ class RestaurantRatingCard extends StatelessWidget {
                       Text(
                         "Lihat Detail",
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary),
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
+                      SizedBox(width: 5),
                       Icon(
                         Icons.arrow_forward_ios,
                         color: Theme.of(context).colorScheme.onPrimary,
                         size: 13,
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -1,6 +1,7 @@
-import 'package:restaurant_app/data/model/favorite_restaurant.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
+import 'package:restaurant_app/data/model/favorite_restaurant.dart';
 
 class FavoriteService {
   static Database? _database;
@@ -34,15 +35,20 @@ class FavoriteService {
 
   Future<int> insertFavorite(FavoriteRestaurant restaurant) async {
     final db = await database;
-    return await db.insert(_tableName, restaurant.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert(
+      _tableName,
+      restaurant.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<FavoriteRestaurant>> getFavorites() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(_tableName);
     return List.generate(
-        maps.length, (i) => FavoriteRestaurant.fromMap(maps[i]));
+      maps.length,
+      (i) => FavoriteRestaurant.fromMap(maps[i]),
+    );
   }
 
   Future<int> deleteFavorite(String id) async {
@@ -52,8 +58,11 @@ class FavoriteService {
 
   Future<bool> isFavorite(String id) async {
     final db = await database;
-    final List<Map<String, dynamic>> result =
-        await db.query(_tableName, where: 'id = ?', whereArgs: [id]);
+    final List<Map<String, dynamic>> result = await db.query(
+      _tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
     return result.isNotEmpty;
   }
 }

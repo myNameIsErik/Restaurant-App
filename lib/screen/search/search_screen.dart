@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import 'package:restaurant_app/provider/search/search_provider.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/static/restaurant_search_result_state.dart';
@@ -27,11 +28,12 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text("CariIn Restaurant",
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: Theme.of(context).colorScheme.primary)),
+        title: Text(
+          "CariIn Restaurant",
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -42,8 +44,9 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
-                border:
-                    Border.all(color: Theme.of(context).colorScheme.primary),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               child: TextField(
                 controller: _searchController,
@@ -59,9 +62,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 onChanged: (query) {
                   if (query.isNotEmpty) {
-                    context
-                        .read<RestaurantSearchProvider>()
-                        .searchRestaurants(query);
+                    context.read<RestaurantSearchProvider>().searchRestaurants(
+                      query,
+                    );
                   } else {
                     context
                         .read<RestaurantSearchProvider>()
@@ -76,8 +79,12 @@ class _SearchScreenState extends State<SearchScreen> {
               builder: (context, provider, child) {
                 if (provider.resultState is RestaurantSearchLoadingState) {
                   return Center(
-                    child: Lottie.asset("assets/lottie/loading.json",
-                        width: 200, height: 200, fit: BoxFit.cover),
+                    child: Lottie.asset(
+                      "assets/lottie/loading.json",
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
                   );
                 }
                 if (provider.resultState is RestaurantSearchErrorState) {
@@ -89,23 +96,21 @@ class _SearchScreenState extends State<SearchScreen> {
                         const SizedBox(height: 10),
                         Text(
                           "Oops! Terjadi kesalahan.",
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
+                        SizedBox(height: 8),
                         Text(
                           "Periksa Koneksi Internet Anda.",
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                       ],
                     ),
@@ -125,12 +130,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         SizedBox(height: 10),
                         Text(
                           "Oops! Restoran tidak ditemukan.",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                       ],
                     ),
@@ -148,7 +152,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: MediaQuery.of(context).size.height * 0.41,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 4),
+                            horizontal: 16,
+                            vertical: 4,
+                          ),
                           child: RestaurantCard(
                             restaurant: restaurant,
                             onTap: () {
@@ -165,19 +171,24 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 }
                 return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset("assets/lottie/search.json",
-                        height: 150, fit: BoxFit.cover),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('Cari berdasarkan nama dan kategori restoran.',
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset(
+                        "assets/lottie/search.json",
+                        height: 150,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Cari berdasarkan nama dan kategori restoran.',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface)),
-                  ],
-                ));
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
           ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:restaurant_app/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/screen/home/home_screen.dart';
-import 'package:restaurant_app/widgets/drawer/setting_drawer.dart';
+import 'package:restaurant_app/screen/settings/setting_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -17,7 +18,8 @@ class MainScreen extends StatelessWidget {
         builder: (context, value, child) {
           return switch (value.indexBottomNavBar) {
             0 => const HomeScreen(),
-            _ => const FavoriteScreen(),
+            1 => const FavoriteScreen(),
+            _ => const SettingScreen(),
           };
         },
       ),
@@ -25,22 +27,7 @@ class MainScreen extends StatelessWidget {
         fixedColor: Theme.of(context).colorScheme.primary,
         currentIndex: context.watch<IndexNavProvider>().indexBottomNavBar,
         onTap: (index) {
-          if (index == 2) {
-            // menampilkan drawer dari bawah saat Settings dipilih
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (context) {
-                final theme = Theme.of(context);
-                return Theme(
-                  data: theme,
-                  child: const SettingDrawer(),
-                );
-              },
-            );
-          } else {
-            context.read<IndexNavProvider>().setIndextBottomNavBar = index;
-          }
+          context.read<IndexNavProvider>().setIndextBottomNavBar = index;
         },
         items: const [
           BottomNavigationBarItem(

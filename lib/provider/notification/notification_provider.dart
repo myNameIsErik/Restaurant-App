@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:restaurant_app/services/local_notification_service.dart';
 
 class NotificationProvider extends ChangeNotifier {
@@ -10,8 +11,7 @@ class NotificationProvider extends ChangeNotifier {
     requestPermissions(); // Panggil otomatis saat provider diinisialisasi
   }
 
-  final int _notificationId =
-      1; // Gunakan ID tetap agar bisa dibatalkan jika dinonaktifkan
+  final int _notificationId = 1;
   bool _isNotificationEnabled = false;
   bool get isNotificationEnabled => _isNotificationEnabled;
 
@@ -39,12 +39,14 @@ class NotificationProvider extends ChangeNotifier {
     if (isEnabled) {
       if (_permission == true) {
         await flutterNotificationService.scheduleDailyElevenAMNotification(
-            id: _notificationId);
+          id: _notificationId,
+        );
       } else {
         await requestPermissions(); // Minta izin jika belum diberikan
         if (_permission == true) {
           await flutterNotificationService.scheduleDailyElevenAMNotification(
-              id: _notificationId);
+            id: _notificationId,
+          );
         }
       }
     } else {

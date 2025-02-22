@@ -1,8 +1,10 @@
 import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
 import 'package:restaurant_app/data/model/add_review_response.dart';
 import 'package:restaurant_app/data/model/restaurant_detail_response.dart';
 import 'package:restaurant_app/data/model/restaurant_list_response.dart';
-import 'package:http/http.dart' as http;
 import 'package:restaurant_app/data/model/restaurant_search_response.dart';
 
 class ApiServices {
@@ -36,7 +38,10 @@ class ApiServices {
 
       if (jsonResponse["restaurants"] == null) {
         return RestaurantSearchResponse(
-            error: true, founded: 0, restaurants: []);
+          error: true,
+          founded: 0,
+          restaurants: [],
+        );
       }
 
       return RestaurantSearchResponse.fromJson(jsonResponse);
@@ -46,14 +51,13 @@ class ApiServices {
   }
 
   Future<AddReviewResponse> addReview(
-      String id, String name, String review) async {
+    String id,
+    String name,
+    String review,
+  ) async {
     final response = await http.post(
       Uri.parse("$_baseUrl/review"),
-      body: {
-        'id': id,
-        'name': name,
-        'review': review,
-      },
+      body: {'id': id, 'name': name, 'review': review},
     );
 
     if (response.statusCode == 200) {

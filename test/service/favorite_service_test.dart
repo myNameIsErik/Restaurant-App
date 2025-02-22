@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 import 'package:restaurant_app/data/model/favorite_restaurant.dart';
 import 'package:restaurant_app/services/favorite_service.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
   late FavoriteService favoriteService;
@@ -49,8 +50,9 @@ void main() {
     test('Menghapus restoran dari daftar favorit', () async {
       await favoriteService.insertFavorite(favoriteRestaurant);
 
-      final deleteResult =
-          await favoriteService.deleteFavorite(favoriteRestaurant.id);
+      final deleteResult = await favoriteService.deleteFavorite(
+        favoriteRestaurant.id,
+      );
       expect(deleteResult, equals(1));
 
       final favorites = await favoriteService.getFavorites();

@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:provider/provider.dart';
+
+import 'robot/detail_robot.dart';
+import 'robot/home_robot.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/main.dart';
 import 'package:restaurant_app/provider/detail/favorite_list_provider.dart';
@@ -15,63 +18,51 @@ import 'package:restaurant_app/provider/search/search_provider.dart';
 import 'package:restaurant_app/provider/style/theme/theme_provider.dart';
 import 'package:restaurant_app/services/favorite_service.dart';
 import 'package:restaurant_app/services/local_notification_service.dart';
-import 'robot/detail_robot.dart';
-import 'robot/home_robot.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Navigasi dari HomeScreen ke DetailScreen',
-      (WidgetTester tester) async {
+  testWidgets('Navigasi dari HomeScreen ke DetailScreen', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
-          Provider(
-            create: (context) => FavoriteService(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => FavoriteProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => IndexNavProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => FavoriteListProvider(),
-          ),
-          Provider(
-            create: (context) => ApiServices(),
-          ),
+          Provider(create: (context) => FavoriteService()),
+          ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+          ChangeNotifierProvider(create: (context) => IndexNavProvider()),
+          ChangeNotifierProvider(create: (context) => FavoriteListProvider()),
+          Provider(create: (context) => ApiServices()),
           Provider(create: (context) => LocalNotificationService()..init()),
           ChangeNotifierProvider(
-            create: (context) => NotificationProvider(
-              context.read<LocalNotificationService>(),
-            )..requestPermissions(),
+            create:
+                (context) => NotificationProvider(
+                  context.read<LocalNotificationService>(),
+                )..requestPermissions(),
           ),
           ChangeNotifierProvider(
-            create: (context) => RestaurantListProvider(
-              context.read<ApiServices>(),
-            ),
+            create:
+                (context) =>
+                    RestaurantListProvider(context.read<ApiServices>()),
           ),
           ChangeNotifierProvider(
-            create: (context) => RestaurantRatingProvider(
-              context.read<ApiServices>(),
-            ),
+            create:
+                (context) =>
+                    RestaurantRatingProvider(context.read<ApiServices>()),
           ),
           ChangeNotifierProvider(
-            create: (context) => RestaurantDetailProvider(
-              context.read<ApiServices>(),
-            ),
+            create:
+                (context) =>
+                    RestaurantDetailProvider(context.read<ApiServices>()),
           ),
           ChangeNotifierProvider(
-            create: (context) => RestaurantSearchProvider(
-              context.read<ApiServices>(),
-            ),
+            create:
+                (context) =>
+                    RestaurantSearchProvider(context.read<ApiServices>()),
           ),
           ChangeNotifierProvider(
-            create: (context) => AddReviewProvider(
-              context.read<ApiServices>(),
-            ),
+            create: (context) => AddReviewProvider(context.read<ApiServices>()),
           ),
         ],
         child: const MyApp(),

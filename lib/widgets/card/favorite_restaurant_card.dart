@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:restaurant_app/data/model/favorite_restaurant.dart';
 
 class FavoriteRestaurantCard extends StatelessWidget {
   final FavoriteRestaurant favRestaurant;
   final Function() onTap;
+  static const String _baseUrl = "https://restaurant-api.dicoding.dev";
 
   const FavoriteRestaurantCard({
     super.key,
@@ -18,9 +20,7 @@ class FavoriteRestaurantCard extends StatelessWidget {
       child: Card(
         elevation: 1.0,
         shadowColor: Theme.of(context).colorScheme.onSurface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,12 +30,13 @@ class FavoriteRestaurantCard extends StatelessWidget {
                 tag: "image_${favRestaurant.id}",
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      topRight: Radius.circular(8.0),
-                      bottomLeft: Radius.zero,
-                      bottomRight: Radius.zero),
+                    topLeft: Radius.circular(8.0),
+                    topRight: Radius.circular(8.0),
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.zero,
+                  ),
                   child: Image.network(
-                    "https://restaurant-api.dicoding.dev/images/small/${favRestaurant.pictureId}",
+                    "$_baseUrl/images/small/${favRestaurant.pictureId}",
                     width: double.infinity,
                     height: 250,
                     fit: BoxFit.cover,
@@ -47,8 +48,11 @@ class FavoriteRestaurantCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.broken_image,
-                                size: 50, color: Colors.grey[600]),
+                            Icon(
+                              Icons.broken_image,
+                              size: 50,
+                              color: Colors.grey[600],
+                            ),
                             const SizedBox(height: 8),
                             Text(
                               "Gagal Memuat Gambar",
@@ -64,8 +68,10 @@ class FavoriteRestaurantCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -73,13 +79,12 @@ class FavoriteRestaurantCard extends StatelessWidget {
                       children: [
                         Text(
                           favRestaurant.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                         Spacer(),
                         Row(
@@ -94,13 +99,11 @@ class FavoriteRestaurantCard extends StatelessWidget {
                             const SizedBox.square(dimension: 4),
                             Text(
                               favRestaurant.rating.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
                             ),
                           ],
                         ),
@@ -121,13 +124,11 @@ class FavoriteRestaurantCard extends StatelessWidget {
                             favRestaurant.city,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
                         ),
                       ],

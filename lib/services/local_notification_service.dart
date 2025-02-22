@@ -3,18 +3,18 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:restaurant_app/data/api/api_service.dart';
-import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+
+import 'package:restaurant_app/data/api/api_service.dart';
+import 'package:restaurant_app/data/model/restaurant.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class LocalNotificationService {
   bool _isRequestingPermission = false;
-
-  final ApiServices _apiServices = ApiServices(); // 🔥 Tambahkan API Services
+  final ApiServices _apiServices = ApiServices(); // Tambahkan API Services
 
   Future<void> init() async {
     await configureLocalTimeZone();
@@ -26,29 +26,13 @@ class LocalNotificationService {
       requestBadgePermission: false,
       requestSoundPermission: false,
     );
+
     const initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
     );
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
-  }
 
-  Future<bool> _isAndroidPermissionGranted() async {
-    return await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
-            ?.areNotificationsEnabled() ??
-        false;
-  }
-
-  Future<bool> _requestAndroidNotificationsPermission() async {
-    return await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
-            ?.requestNotificationsPermission() ??
-        false;
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   Future<bool?> requestPermissions() async {
@@ -59,8 +43,10 @@ class LocalNotificationService {
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       final iOSImplementation =
-          flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>();
+          flutterLocalNotificationsPlugin
+              .resolvePlatformSpecificImplementation<
+                IOSFlutterLocalNotificationsPlugin
+              >();
       permissionGranted = await iOSImplementation?.requestPermissions(
         alert: true,
         badge: true,
@@ -68,16 +54,34 @@ class LocalNotificationService {
       );
     } else if (defaultTargetPlatform == TargetPlatform.android) {
       final notificationEnabled = await _isAndroidPermissionGranted();
-      if (!notificationEnabled) {
-        permissionGranted = await _requestAndroidNotificationsPermission();
-      } else {
-        permissionGranted = notificationEnabled;
-      }
+      permissionGranted =
+          notificationEnabled
+              ? true
+              : await _requestAndroidNotificationsPermission();
     } else {
       permissionGranted = false;
     }
+
     _isRequestingPermission = false;
     return permissionGranted;
+  }
+
+  Future<bool> _isAndroidPermissionGranted() async {
+    return await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin
+            >()
+            ?.areNotificationsEnabled() ??
+        false;
+  }
+
+  Future<bool> _requestAndroidNotificationsPermission() async {
+    return await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin
+            >()
+            ?.requestNotificationsPermission() ??
+        false;
   }
 
   Future<void> configureLocalTimeZone() async {
@@ -93,7 +97,8 @@ class LocalNotificationService {
       now.year,
       now.month,
       now.day,
-      11,
+      17,
+      20,
     );
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
@@ -118,47 +123,34 @@ class LocalNotificationService {
   }
 
   /// Jadwalkan Notifikasi dengan Rekomendasi Restoran
-  Future<void> scheduleDailyElevenAMNotification({
-    required int id,
-    String channelId = "3",
-    String channelName = "Schedule Notification",
-  }) async {
+  Future<void> scheduleDailyElevenAMNotification({required int id}) async {
     final restaurant = await _fetchRandomRestaurant();
-    String title = "WAKTUNYA MAKAN SIANG!!";
-    String body = "Jangan lupakan makan siangmu!";
-
-    if (restaurant != null) {
-      title = "Coba makan di ${restaurant.name}!";
-      body =
-          "Tempat yang bagus untuk makan siangmu, dengan berbagai menu yang lezat!";
-    }
-
-    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      channelId,
-      channelName,
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-      sound: const RawResourceAndroidNotificationSound('notification'),
-    );
-
-    const iOSPlatformChannelSpecifics = DarwinNotificationDetails(
-      sound: 'slow_spring_board.aiff',
-      presentSound: true,
-    );
+    String title =
+        restaurant != null
+            ? "Coba makan di ${restaurant.name}!"
+            : "WAKTUNYA MAKAN SIANG!!";
+    String body =
+        restaurant != null
+            ? "Tempat yang bagus untuk makan siangmu!"
+            : "Jangan lupakan makan siangmu!";
 
     final notificationDetails = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: iOSPlatformChannelSpecifics,
+      android: AndroidNotificationDetails(
+        "1",
+        "Schedule Notification",
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+        sound: const RawResourceAndroidNotificationSound('notification'),
+      ),
+      iOS: const DarwinNotificationDetails(),
     );
-
-    final datetimeSchedule = _nextInstanceOfElevenAM();
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       body,
-      datetimeSchedule,
+      _nextInstanceOfElevenAM(),
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 
 class FavoriteListProvider extends ChangeNotifier {
@@ -17,8 +18,9 @@ class FavoriteListProvider extends ChangeNotifier {
   }
 
   bool checkItemFavorite(Restaurant value) {
-    final restaurantInList =
-        _favoriteList.where((element) => element.id == value.id);
+    final restaurantInList = _favoriteList.where(
+      (element) => element.id == value.id,
+    );
     return restaurantInList.isNotEmpty;
   }
 }

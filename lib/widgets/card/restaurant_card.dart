@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
   final Restaurant restaurant;
   final Function() onTap;
+  static const String _baseUrl = "https://restaurant-api.dicoding.dev";
 
   const RestaurantCard({
     super.key,
@@ -18,9 +20,7 @@ class RestaurantCard extends StatelessWidget {
       child: Card(
         elevation: 1.0,
         shadowColor: Theme.of(context).colorScheme.onSurface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,12 +30,13 @@ class RestaurantCard extends StatelessWidget {
                 tag: "image_${restaurant.id}",
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      topRight: Radius.circular(8.0),
-                      bottomLeft: Radius.zero,
-                      bottomRight: Radius.zero),
+                    topLeft: Radius.circular(8.0),
+                    topRight: Radius.circular(8.0),
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.zero,
+                  ),
                   child: Image.network(
-                    "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
+                    "$_baseUrl/images/small/${restaurant.pictureId}",
                     width: double.infinity,
                     height: 250,
                     fit: BoxFit.cover,
@@ -45,8 +46,10 @@ class RestaurantCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,13 +57,12 @@ class RestaurantCard extends StatelessWidget {
                       children: [
                         Text(
                           restaurant.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                         Spacer(),
                         Row(
@@ -75,13 +77,11 @@ class RestaurantCard extends StatelessWidget {
                             const SizedBox.square(dimension: 4),
                             Text(
                               restaurant.rating.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
                             ),
                           ],
                         ),
@@ -102,13 +102,11 @@ class RestaurantCard extends StatelessWidget {
                             restaurant.city,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
                         ),
                       ],

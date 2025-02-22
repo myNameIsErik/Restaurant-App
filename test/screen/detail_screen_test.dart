@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/data/model/restaurant_detail_response.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
@@ -13,7 +15,6 @@ import 'package:restaurant_app/screen/detail/menu_list.dart';
 import 'package:restaurant_app/widgets/card/review/add_review_form.dart';
 import 'package:restaurant_app/widgets/card/review/review_list.dart';
 import 'package:restaurant_app/screen/detail/favorite_icon_widget.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../mock_api_service.mocks.dart';
 
@@ -49,8 +50,9 @@ void main() {
       restaurant: testRestaurant,
     );
 
-    when(mockApiServices.getRestaurantDetail(any))
-        .thenAnswer((_) async => response);
+    when(
+      mockApiServices.getRestaurantDetail(any),
+    ).thenAnswer((_) async => response);
 
     favoriteProvider = FavoriteProvider();
   });
@@ -59,8 +61,10 @@ void main() {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<RestaurantDetailProvider>(
-          create: (_) => RestaurantDetailProvider(mockApiServices)
-            ..fetchRestaurantDetail("1"),
+          create:
+              (_) =>
+                  RestaurantDetailProvider(mockApiServices)
+                    ..fetchRestaurantDetail("1"),
         ),
         ChangeNotifierProvider<FavoriteProvider>(
           create: (_) => favoriteProvider,
@@ -71,10 +75,14 @@ void main() {
   }
 
   group('Detail Screen Widget Tests', () {
-    testWidgets('Menampilkan widget pada halaman body detail',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(createTestableWidget(
-          BodyOfDetailScreenWidget(restaurant: testRestaurant)));
+    testWidgets('Menampilkan widget pada halaman body detail', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        createTestableWidget(
+          BodyOfDetailScreenWidget(restaurant: testRestaurant),
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(BodyOfDetailScreenWidget), findsOneWidget);
@@ -86,16 +94,22 @@ void main() {
       expect(find.byType(AddReviewForm), findsOneWidget);
     });
 
-    testWidgets('Image.network dimuat dengan benar',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(createTestableWidget(
-          BodyOfDetailScreenWidget(restaurant: testRestaurant)));
+    testWidgets('Image.network dimuat dengan benar', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        createTestableWidget(
+          BodyOfDetailScreenWidget(restaurant: testRestaurant),
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(Image), findsOneWidget);
       final image = tester.widget<Image>(find.byType(Image));
-      expect((image.image as NetworkImage).url,
-          "https://restaurant-api.dicoding.dev/images/large/${testRestaurant.pictureId}");
+      expect(
+        (image.image as NetworkImage).url,
+        "https://restaurant-api.dicoding.dev/images/large/${testRestaurant.pictureId}",
+      );
     });
   });
 }
