@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 class FoodCard extends StatelessWidget {
   final String name;
 
-  const FoodCard({
-    super.key,
-    required this.name,
-  });
+  const FoodCard({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 1.0,
       shadowColor: Theme.of(context).colorScheme.onSurface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

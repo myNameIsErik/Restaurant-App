@@ -20,14 +20,19 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     super.initState();
 
     Future.microtask(() async {
+      if (!mounted) return;
+
       final favoriteListProvider = context.read<FavoriteProvider>();
       final favoriteIconProvider = context.read<FavoriteIconProvider>();
 
-      // Cek apakah restoran ini ada di daftar favorit
       final isFavorited = await favoriteListProvider.isFavorite(
         widget.favRestaurant.id,
       );
+
+      if (!mounted) return;
       favoriteIconProvider.isFavorited = isFavorited;
+
+      if (!mounted) return;
       context.read<FavoriteProvider>().loadFavorites();
     });
   }

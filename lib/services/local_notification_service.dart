@@ -1,10 +1,11 @@
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
@@ -97,8 +98,7 @@ class LocalNotificationService {
       now.year,
       now.month,
       now.day,
-      17,
-      20,
+      11,
     );
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
@@ -117,40 +117,53 @@ class LocalNotificationService {
         return restaurants[randomIndex];
       }
     } catch (e) {
-      print("Error fetching restaurant: $e");
+      developer.log("Error fetching restaurant: $e");
     }
     return null;
   }
 
   /// Jadwalkan Notifikasi dengan Rekomendasi Restoran
-  Future<void> scheduleDailyElevenAMNotification({required int id}) async {
+  Future<void> scheduleDailyElevenAMNotification({
+    required int id,
+    String channelId = "1",
+    String channelName = "Schedule Notification",
+  }) async {
     final restaurant = await _fetchRandomRestaurant();
-    String title =
-        restaurant != null
-            ? "Coba makan di ${restaurant.name}!"
-            : "WAKTUNYA MAKAN SIANG!!";
-    String body =
-        restaurant != null
-            ? "Tempat yang bagus untuk makan siangmu!"
-            : "Jangan lupakan makan siangmu!";
+    String title = "WAKTUNYA MAKAN SIANG!!";
+    String body = "Jangan lupakan makan siangmu!";
+
+    if (restaurant != null) {
+      title = "Coba makan di ${restaurant.name}!";
+      body =
+          "Tempat yang bagus untuk makan siangmu, dengan berbagai menu yang lezat!";
+    }
+
+    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      channelId,
+      channelName,
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+      sound: const RawResourceAndroidNotificationSound('notification'),
+    );
+
+    const iOSPlatformChannelSpecifics = DarwinNotificationDetails(
+      sound: 'slow_spring_board.aiff',
+      presentSound: true,
+    );
 
     final notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails(
-        "1",
-        "Schedule Notification",
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'ticker',
-        sound: const RawResourceAndroidNotificationSound('notification'),
-      ),
-      iOS: const DarwinNotificationDetails(),
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
     );
+
+    final datetimeSchedule = _nextInstanceOfElevenAM();
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       body,
-      _nextInstanceOfElevenAM(),
+      datetimeSchedule,
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:

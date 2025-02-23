@@ -20,8 +20,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     super.initState();
 
     Future.microtask(() async {
+      if (!mounted) return;
+
       final provider = context.read<FavoriteProvider>();
+
       await provider.checkInternetConnection();
+
+      if (!mounted) return;
       provider.loadFavorites();
     });
   }
@@ -113,7 +118,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.43,
                       child: FavoriteRestaurantCard(
                         favRestaurant: favorite,
                         onTap: () {

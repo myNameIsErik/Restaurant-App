@@ -20,9 +20,10 @@ class FavoriteProvider extends ChangeNotifier {
   bool get isConnected => _isConnected;
 
   Future<void> checkInternetConnection() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
+    List<ConnectivityResult> connectivityResult =
+        await Connectivity().checkConnectivity();
 
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       _isConnected = false;
     } else {
       try {

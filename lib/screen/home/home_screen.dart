@@ -22,7 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     Future.microtask(() {
+      if (!mounted) return;
       context.read<RestaurantListProvider>().fetchRestaurantList();
+
+      if (!mounted) return;
       context.read<RestaurantRatingProvider>().fetchRestaurantRating();
     });
   }
@@ -200,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) {
                             final restaurant = restaurantList[index];
                             return SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.41,
+                              height: MediaQuery.of(context).size.height * 0.43,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16,

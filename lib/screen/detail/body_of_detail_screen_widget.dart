@@ -98,7 +98,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "${restaurant.city}",
+                                        restaurant.city,
                                         style: Theme.of(
                                           context,
                                         ).textTheme.labelLarge?.copyWith(

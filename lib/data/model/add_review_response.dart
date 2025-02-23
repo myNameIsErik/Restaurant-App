@@ -16,7 +16,8 @@ class AddReviewResponse {
       error: json["error"],
       message: json["message"],
       customerReviews: List<CustomerReview>.from(
-          json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
+        json["customerReviews"].map((x) => CustomerReview.fromJson(x)),
+      ),
     );
   }
 }

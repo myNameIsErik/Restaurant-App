@@ -1,12 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class AppTextStyles {
-  static const TextStyle _commonStyle = TextStyle(
-    fontFamily: 'ABeeZee',
-  );
-  static const TextStyle _secondStyle = TextStyle(
-    fontFamily: 'AnekOdia',
-  );
+  static const TextStyle _commonStyle = TextStyle(fontFamily: 'ABeeZee');
+  static const TextStyle _secondStyle = TextStyle(fontFamily: 'AnekOdia');
 
   /// displayLarge Text Style
   static TextStyle displayLarge = _commonStyle.copyWith(
